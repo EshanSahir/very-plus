@@ -1,8 +1,8 @@
 <div align="center">
 
-# VERY+ // STOP SAYING "VERY" FR
+# VERY+
 
-**Stop talking like an NPC. Turn lazy *"very + [word]"* phrases into S-tier vocabulary.**
+**Find better words than *"very + [word]"*.**
 
 [![Live Demo](https://img.shields.io/badge/Live%20Demo-veryplus--app.surge.sh-FFE600?style=for-the-badge&logo=google-chrome&logoColor=000&labelColor=000)](https://veryplus-app.surge.sh)
 [![React](https://img.shields.io/badge/React-19.2-61DAFB?style=for-the-badge&logo=react&logoColor=000&labelColor=000)](https://react.dev)
@@ -18,7 +18,7 @@
 
 ## 📖 Overview
 
-**VERY+** is an open-source, offline-first web tool built with authentic **Neobrutalism Minimalism**. We got tired of everyone saying *"very big"*, *"very tired"*, and *"very sad"* like robots. Type any basic word, and it gives you instant high-impact upgrades with pronunciations, definitions, real-world examples, and drills. 100% free forever, zero ads, zero tracking.
+**VERY+** is an open-source, offline-first web tool built in **Neobrutalism Minimalism**. It helps you replace repetitive *"very + adjective"* phrases with precise, natural words — complete with audio pronunciations, definitions, contextual examples, quizzes, and a live paragraph fixer. 100% free, zero ads, zero tracking.
 
 ```
 ┌────────────────────────────────────────────────────────┐
