@@ -1,8 +1,8 @@
 <div align="center">
 
-# ⚡ VERY + // VOCABULARY AMPLIFIER
+# VERY+ // STOP SAYING "VERY" FR
 
-**Transform lazy *"very + [word]"* phrasing into precise, elevated prose.**
+**Stop talking like an NPC. Turn lazy *"very + [word]"* phrases into S-tier vocabulary.**
 
 [![Live Demo](https://img.shields.io/badge/Live%20Demo-veryplus--app.surge.sh-FFE600?style=for-the-badge&logo=google-chrome&logoColor=000&labelColor=000)](https://veryplus-app.surge.sh)
 [![React](https://img.shields.io/badge/React-19.2-61DAFB?style=for-the-badge&logo=react&logoColor=000&labelColor=000)](https://react.dev)
@@ -10,7 +10,7 @@
 [![Vite](https://img.shields.io/badge/Vite-8.x-646CFF?style=for-the-badge&logo=vite&logoColor=fff&labelColor=000)](https://vitejs.dev)
 [![License](https://img.shields.io/badge/License-MIT-A3E635?style=for-the-badge&logoColor=000&labelColor=000)](./LICENSE)
 
-[🌐 View Live Deployment](https://veryplus-app.surge.sh) • [⚡ Report Bug / Request Feature](https://github.com/issues)
+[🌐 View Live Website](https://veryplus-app.surge.sh) • [⚡ GitHub Repository](https://github.com/EshanSahir/very-plus)
 
 </div>
 
@@ -18,7 +18,7 @@
 
 ## 📖 Overview
 
-**VERY +** is an open-source, offline-first vocabulary enhancement web application built with a strict **Neobrutalism Minimalism** aesthetic. It targets the common writing weakness of relying on *"very + [adjective]"* by offering immediate, nuanced, high-impact replacements with definitions, contextual comparisons, audio pronunciation, and interactive drills.
+**VERY+** is an open-source, offline-first web tool built with authentic **Neobrutalism Minimalism**. We got tired of everyone saying *"very big"*, *"very tired"*, and *"very sad"* like robots. Type any basic word, and it gives you instant high-impact upgrades with pronunciations, definitions, real-world examples, and drills. 100% free forever, zero ads, zero tracking.
 
 ```
 ┌────────────────────────────────────────────────────────┐
