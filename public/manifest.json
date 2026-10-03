@@ -1,0 +1,20 @@
+{
+  "name": "VERY + // Vocabulary Amplifier",
+  "short_name": "VERY+",
+  "description": "Amplify your vocabulary by replacing 'very + [word]' with elevated, precise words in a Neobrutalism Minimalist design.",
+  "start_url": "/",
+  "scope": "/",
+  "display": "standalone",
+  "orientation": "portrait",
+  "background_color": "#F4F0EA",
+  "theme_color": "#FFE600",
+  "categories": ["education", "utilities", "productivity"],
+  "icons": [
+    {
+      "src": "/favicon.svg",
+      "sizes": "any",
+      "type": "image/svg+xml",
+      "purpose": "any maskable"
+    }
+  ]
+}
