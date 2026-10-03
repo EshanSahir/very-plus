@@ -3,6 +3,50 @@
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta http-equiv="Cache-Control" content="no-cache, no-store, must-revalidate" />
+    <meta http-equiv="Pragma" content="no-cache" />
+    <meta http-equiv="Expires" content="0" />
+
+    <!-- Self-Healing Stale Cache Recovery Guard -->
+    <script>
+      (function() {
+        var hasRecovered = false;
+        function recover() {
+          if (hasRecovered || sessionStorage.getItem('vp_heal_attempt')) return;
+          hasRecovered = true;
+          sessionStorage.setItem('vp_heal_attempt', Date.now().toString());
+          console.warn('[VERY+] Stale cache or chunk failure detected. Purging and refreshing...');
+          if ('serviceWorker' in navigator) {
+            navigator.serviceWorker.getRegistrations().then(function(regs) {
+              for (var i = 0; i < regs.length; i++) regs[i].unregister();
+            });
+          }
+          if ('caches' in window) {
+            caches.keys().then(function(keys) {
+              return Promise.all(keys.map(function(k) { return caches.delete(k); }));
+            }).then(function() {
+              window.location.reload();
+            });
+          } else {
+            window.location.reload();
+          }
+        }
+
+        window.addEventListener('error', function(e) {
+          if (e.target && (e.target.tagName === 'SCRIPT' || e.target.tagName === 'LINK')) {
+            recover();
+          } else if (e.message && (e.message.indexOf("Unexpected token '<'") !== -1 || e.message.indexOf("Failed to fetch dynamically imported module") !== -1)) {
+            recover();
+          }
+        }, true);
+
+        window.addEventListener('load', function() {
+          setTimeout(function() {
+            sessionStorage.removeItem('vp_heal_attempt');
+          }, 4000);
+        });
+      })();
+    </script>
     
     <!-- Primary SEO Meta Tags -->
     <title>VERY+ — stop saying "very"</title>
