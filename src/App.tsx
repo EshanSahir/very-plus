@@ -424,7 +424,7 @@ export function App() {
       <header className="brand-bar" role="banner">
         <div className="logo-block">
           <span className="logo-title">VERY+</span>
-          <span className="logo-tag">your english teacher was right. stop using "very".</span>
+          <span className="logo-tag">because "very very very tired" is not an essay strategy.</span>
         </div>
 
         <div className="header-actions">
