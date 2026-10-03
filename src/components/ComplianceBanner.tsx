@@ -40,17 +40,17 @@ export function ComplianceBanner({ onOpenLegal }: ComplianceBannerProps) {
         <div style={{ display: 'flex', alignItems: 'center', gap: '0.6rem' }}>
           <ShieldCheck size={20} strokeWidth={2.5} />
           <span style={{ fontWeight: 900, textTransform: 'uppercase', letterSpacing: '0.04em' }}>
-            ZERO COOKIES, ZERO WEIRD TRACKING:
+            PRIVACY & LOCAL STORAGE:
           </span>
         </div>
         <p style={{ fontSize: '0.85rem', fontWeight: 600, margin: 0, color: '#111' }}>
-          Real talk: this site runs 100% in your browser. We don't track you, we don't sell your data, and we don't even have a database. Your saved words stay on your own device. Peep our{' '}
+          This app runs 100% in your browser. Zero tracking cookies, zero analytics, zero ads. Your saved words never leave your device. Check our{' '}
           <button 
             type="button" 
             className="legal-inline-link"
             onClick={() => onOpenLegal('terms')}
           >
-            Terms of Use
+            terms
           </button>
           {' '}and{' '}
           <button 
@@ -58,9 +58,8 @@ export function ComplianceBanner({ onOpenLegal }: ComplianceBannerProps) {
             className="legal-inline-link"
             onClick={() => onOpenLegal('privacy')}
           >
-            Privacy Policy
-          </button>
-          {' '}if you want the boring details.
+            privacy policy
+          </button>.
         </p>
       </div>
 
@@ -71,7 +70,7 @@ export function ComplianceBanner({ onOpenLegal }: ComplianceBannerProps) {
           onClick={() => onOpenLegal('disclaimer')}
         >
           <Info size={14} />
-          BORING LEGAL STUFF
+          details
         </button>
         <button 
           className="nb-btn nb-btn-sm nb-btn-yellow"
@@ -79,7 +78,7 @@ export function ComplianceBanner({ onOpenLegal }: ComplianceBannerProps) {
           onClick={handleAccept}
         >
           <Check size={14} />
-          BET / GOT IT 👍
+          got it
         </button>
       </div>
     </aside>
