@@ -260,27 +260,27 @@ export function App() {
       {/* Brand Header */}
       <header className="brand-bar" role="banner">
         <div className="logo-block">
-          <span className="logo-title">VERY +</span>
-          <span className="logo-tag">VOCAB AMPLIFIER</span>
+          <span className="logo-title">VERY+</span>
+          <span className="logo-tag">STOP SAYING "VERY" FR</span>
         </div>
 
         <div className="header-actions">
           <button 
             className="nb-btn nb-btn-sm nb-btn-yellow"
             onClick={handleRandomWord}
-            title="Discover a random power word"
+            title="Gimme a random power word"
           >
             <Shuffle size={16} />
-            SURPRISE ME
+            RANDOM DROP 🎲
           </button>
 
           <button 
             className="nb-btn nb-btn-sm"
             onClick={() => setShowSavedModal(true)}
-            title="View saved vocabulary"
+            title="Check your saved words"
           >
             <Bookmark size={16} />
-            SAVED ({savedWords.length})
+            VAULT ({savedWords.length}) 💾
           </button>
         </div>
       </header>
@@ -292,7 +292,7 @@ export function App() {
           onClick={() => setActiveTab('formula')}
         >
           <Zap size={16} />
-          The Formula
+          the formula ⚡
         </button>
 
         <button 
@@ -300,7 +300,7 @@ export function App() {
           onClick={() => setActiveTab('directory')}
         >
           <BookOpen size={16} />
-          Directory (160+)
+          word dump (160+) 📚
         </button>
 
         <button 
@@ -308,7 +308,7 @@ export function App() {
           onClick={() => setActiveTab('quiz')}
         >
           <Sparkles size={16} />
-          Drill & Quiz
+          pop quiz 🧠
         </button>
 
         <button 
@@ -316,7 +316,7 @@ export function App() {
           onClick={() => setActiveTab('upgrader')}
         >
           <FileText size={16} />
-          Paragraph Upgrader
+          fix my yap ✍️
         </button>
       </nav>
 
@@ -325,7 +325,7 @@ export function App() {
         <main id="main-content" className="formula-stage" tabIndex={-1}>
           {/* Card 1: VERY */}
           <div className="prefix-card">
-            <span className="card-label">PREFIX</span>
+            <span className="card-label">THE LAZY WORD</span>
             <div className="prefix-text">VERY</div>
           </div>
 
@@ -335,9 +335,9 @@ export function App() {
           {/* Card 2: User Input */}
           <div className="input-card">
             <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
-              <span className="card-label">ADJECTIVE / WORD</span>
+              <span className="card-label">YOUR BASIC WORD</span>
               <span className="font-mono uppercase" style={{ fontSize: '0.75rem', fontWeight: 700, color: '#777' }}>
-                {inputValue ? `${inputValue.length} CHARS` : 'TYPE TO ELEVATE'}
+                {inputValue ? `${inputValue.length} CHARS` : 'TYPE SOMETHING BRO'}
               </span>
             </div>
 
@@ -347,7 +347,7 @@ export function App() {
                 className="formula-input"
                 value={inputValue}
                 onChange={handleInputChange}
-                placeholder="type a word, e.g. big, tired, cold..."
+                placeholder="type a basic word... e.g. big, sad, tired, hungry"
                 autoFocus
                 spellCheck="false"
                 aria-label="Enter word to enhance"
@@ -365,7 +365,7 @@ export function App() {
 
             {/* Quick Word Chips */}
             <div className="chips-container">
-              <span className="chips-title">QUICK EXAMPLES:</span>
+              <span className="chips-title">POPULAR BASIC WORDS (CLICK ONE):</span>
               <div className="chips-wrap">
                 {POPULAR_CHIPS.map(chip => (
                   <button
@@ -389,15 +389,15 @@ export function App() {
               <div className="empty-state-icon" style={{ backgroundColor: 'var(--yellow)' }}>
                 <Sparkles size={28} />
               </div>
-              <h2 className="empty-state-title">FINDING REPLACEMENT...</h2>
-              <p className="empty-state-desc">Scanning lexicographical database for the highest-impact synonym.</p>
+              <h2 className="empty-state-title">COOKING UP A BETTER WORD...</h2>
+              <p className="empty-state-desc">Hold up, digging through the dictionary so you don't sound like an NPC.</p>
             </div>
           ) : currentWord ? (
             <article className="result-card" role="region" aria-label="Elevated Vocabulary Result" aria-live="polite">
               {/* Header with power word */}
               <div className="result-card-header">
                 <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
-                  <span className="card-label">ELEVATED VOCABULARY</span>
+                  <span className="card-label">THE UPGRADE (S-TIER VOCAB)</span>
                   <span className="nb-badge" style={{ backgroundColor: '#000', color: '#fff' }}>
                     {currentWord.category || 'Quality'}
                   </span>
@@ -412,23 +412,23 @@ export function App() {
                       title="Listen to pronunciation"
                     >
                       <Volume2 size={16} />
-                      LISTEN
+                      HEAR IT 🔊
                     </button>
 
                     <button 
                       className="nb-btn nb-btn-sm" 
                       onClick={() => toggleSaveWord(currentWord.strong)}
-                      title="Save to Word Bank"
+                      title="Save to Word Vault"
                     >
                       {savedWords.includes(currentWord.strong.toLowerCase()) ? (
                         <>
                           <BookmarkCheck size={16} color="#000" />
-                          SAVED
+                          SAVED ⭐
                         </>
                       ) : (
                         <>
                           <Bookmark size={16} />
-                          SAVE
+                          SAVE TO VAULT 💾
                         </>
                       )}
                     </button>
@@ -452,15 +452,15 @@ export function App() {
                 <div>
                   <div className="section-label" style={{ marginBottom: '0.5rem' }}>
                     <TrendingUp size={16} />
-                    TRANSFORMATION IN CONTEXT
+                    THE GLOW UP (SIDE BY SIDE)
                   </div>
                   <div className="transformation-grid">
                     <div className="transformation-pane pane-bad">
-                      <span className="trans-tag" style={{ color: '#C53030' }}>❌ WEAK PHRASING:</span>
+                      <span className="trans-tag" style={{ color: '#C53030' }}>💀 NPC TIER (DON'T SAY THIS):</span>
                       <p className="trans-sentence">"{currentWord.example.before}"</p>
                     </div>
                     <div className="transformation-pane pane-good">
-                      <span className="trans-tag" style={{ color: '#276749' }}>✅ ELEVATED PHRASING:</span>
+                      <span className="trans-tag" style={{ color: '#276749' }}>🔥 200 IQ UPGRADE (SAY THIS):</span>
                       <p className="trans-sentence">"{currentWord.example.after}"</p>
                     </div>
                   </div>
@@ -471,7 +471,7 @@ export function App() {
                   <div className="alternatives-box">
                     <div className="section-label">
                       <Sparkles size={16} />
-                      NUANCE SPECTRUM (PRECISE ALTERNATIVES)
+                      OTHER WAYS TO SAY IT (PICK YOUR VIBE)
                     </div>
                     <div className="alternatives-grid">
                       {currentWord.alternatives.map((alt, idx) => (
@@ -499,7 +499,7 @@ export function App() {
                     onClick={() => copyToClipboard(currentWord.example.after, true)}
                   >
                     {copiedSentence ? <Check size={16} /> : <Copy size={16} />}
-                    {copiedSentence ? 'SENTENCE COPIED!' : 'COPY SENTENCE'}
+                    {copiedSentence ? 'COPIED! GO IMPRESS EM 🔥' : 'COPY SENTENCE 📋'}
                   </button>
 
                   <button 
@@ -507,7 +507,7 @@ export function App() {
                     onClick={() => copyToClipboard(currentWord.strong, false)}
                   >
                     {copiedWord ? <Check size={16} /> : <Copy size={16} />}
-                    {copiedWord ? 'WORD COPIED!' : 'COPY WORD'}
+                    {copiedWord ? 'COPIED! GO FLEX ⭐' : 'COPY WORD 📋'}
                   </button>
                 </div>
               </div>
@@ -517,9 +517,9 @@ export function App() {
               <div className="empty-state-icon">
                 <ArrowRight size={28} />
               </div>
-              <h2 className="empty-state-title">TYPE ANY WORD ABOVE</h2>
+              <h2 className="empty-state-title">DON'T BE SHY, TYPE A WORD</h2>
               <p className="empty-state-desc">
-                Type adjectives like <strong>big</strong>, <strong>cold</strong>, <strong>tired</strong>, <strong>smart</strong>, or pick a chip to instantly elevate your vocabulary.
+                Type literally any basic word like <strong>big</strong>, <strong>cold</strong>, <strong>tired</strong>, <strong>smart</strong> or tap one of the pills above to un-cook your sentences.
               </p>
             </div>
           )}
@@ -537,7 +537,7 @@ export function App() {
                   type="text"
                   className="bank-search-input"
                   style={{ paddingLeft: '2.5rem' }}
-                  placeholder="Search by basic word or advanced synonym..."
+                  placeholder="search any basic word or fancy synonym..."
                   value={searchQuery}
                   onChange={(e) => setSearchQuery(e.target.value)}
                 />
@@ -545,7 +545,7 @@ export function App() {
 
               <div style={{ display: 'flex', alignItems: 'center', gap: '0.5rem' }}>
                 <span className="nb-badge" style={{ backgroundColor: 'var(--yellow)' }}>
-                  {filteredWords.length} WORDS FOUND
+                  {filteredWords.length} WORDS IN DATABASE
                 </span>
               </div>
             </div>
@@ -600,7 +600,7 @@ export function App() {
                     title="Pronounce"
                   >
                     <Volume2 size={14} />
-                    LISTEN
+                    HEAR IT 🔊
                   </button>
 
                   <button 
@@ -611,7 +611,7 @@ export function App() {
                       setActiveTab('formula');
                     }}
                   >
-                    USE IN FORMULA
+                    TRY IN FORMULA 🚀
                   </button>
                 </div>
               </div>
@@ -625,10 +625,10 @@ export function App() {
         <section className="quiz-container">
           <div className="quiz-header-bar">
             <div className="quiz-stat">
-              SCORE: <span style={{ color: 'var(--coral)' }}>{quizScore}</span>
+              SCORE: <span style={{ color: 'var(--coral)' }}>{quizScore} PTS</span>
             </div>
             <div className="quiz-stat">
-              STREAK: <span style={{ color: '#2B6CB0' }}>{quizStreak} 🔥</span>
+              STREAK: <span style={{ color: '#2B6CB0' }}>{quizStreak} 🔥 {quizStreak >= 5 ? '(COOKING)' : ''}</span>
             </div>
             <div className="quiz-stat">
               QUESTION #{quizIndex + 1}
@@ -636,13 +636,13 @@ export function App() {
           </div>
 
           <div className="quiz-card">
-            <span className="quiz-prompt-badge">WHAT REPLACES THIS PHRASE?</span>
+            <span className="quiz-prompt-badge">WHAT'S THE UPGRADE FOR THIS?</span>
             <div className="quiz-question">
               VERY + <span style={{ color: 'var(--coral)', textDecoration: 'underline' }}>{quizCurrentQuestion.entry.base}</span>
             </div>
 
             <p style={{ fontSize: '1rem', color: '#555', fontStyle: 'italic', maxWidth: '440px' }}>
-              Hint: "{quizCurrentQuestion.entry.definition}"
+              💡 lowkey hint: "{quizCurrentQuestion.entry.definition}"
             </p>
 
             <div className="quiz-options-grid">
@@ -680,7 +680,7 @@ export function App() {
             }}
           >
             <RotateCcw size={16} />
-            RESET QUIZ STATS
+            RESET SCORE / RUN IT BACK 🔄
           </button>
         </section>
       )}
@@ -690,14 +690,14 @@ export function App() {
         <section style={{ display: 'flex', flexDirection: 'column', gap: '1.5rem' }}>
           <div className="upgrader-box">
             <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
-              <span className="card-label">PASTE OR WRITE A PARAGRAPH</span>
+              <span className="card-label">DROP YOUR ESSAY OR TEXT HERE</span>
               <button 
                 className="quick-chip"
                 onClick={() => setParagraphInput(
                   "The project was very big and the team was very tired. However, our lead had a very smart idea that was very easy to execute."
                 )}
               >
-                LOAD SAMPLE TEXT
+                PASTE AN EXAMPLE FOR ME ✨
               </button>
             </div>
 
@@ -705,12 +705,12 @@ export function App() {
               className="upgrader-textarea"
               value={paragraphInput}
               onChange={(e) => setParagraphInput(e.target.value)}
-              placeholder="Paste any text with 'very + word' (e.g. 'I was very happy, but the weather was very bad')..."
+              placeholder="Paste whatever you wrote with 'very + word' (e.g. 'I was very tired and the movie was very boring'). We'll replace all the lazy words on the spot..."
             />
 
             <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', flexWrap: 'wrap', gap: '0.75rem' }}>
               <span className="font-mono" style={{ fontSize: '0.85rem', fontWeight: 700 }}>
-                AUTOMATIC SYNTAX ENHANCER ACTIVE
+                ⚡ AUTO-DETECTOR RUNNING: HIGHLIGHTING THE UPGRADES IN REAL TIME
               </span>
 
               <button 
@@ -720,7 +720,7 @@ export function App() {
                 }}
               >
                 <Copy size={16} />
-                COPY SOURCE
+                COPY RAW TEXT 📋
               </button>
             </div>
           </div>
@@ -729,7 +729,7 @@ export function App() {
           <div style={{ display: 'flex', flexDirection: 'column', gap: '0.5rem' }}>
             <span className="section-label">
               <Sparkles size={16} />
-              UPGRADED RESULT (HIGHLIGHTED MODIFICATIONS)
+              🔥 YOUR UPGRADED TEXT (LOOK AT THAT GLOW UP):
             </span>
             {renderUpgradedParagraph()}
           </div>
@@ -744,7 +744,7 @@ export function App() {
               <div style={{ display: 'flex', alignItems: 'center', gap: '0.5rem' }}>
                 <BookmarkCheck size={20} />
                 <h3 style={{ fontSize: '1.25rem', fontWeight: 900, textTransform: 'uppercase' }}>
-                  SAVED VOCABULARY ({savedWords.length})
+                  YOUR WORD VAULT ({savedWords.length}) 🎒
                 </h3>
               </div>
               <button 
@@ -759,7 +759,7 @@ export function App() {
             <div className="nb-modal-body">
               {savedWords.length === 0 ? (
                 <p style={{ textAlign: 'center', color: '#666', padding: '2rem 0' }}>
-                  No words saved yet! Click the "SAVE" button on any word card to build your personal vocabulary bank.
+                  Your vault is empty! Tap "SAVE TO VAULT" on any word card so you don't forget it later.
                 </p>
               ) : (
                 savedWords.map((word) => {
@@ -815,17 +815,17 @@ export function App() {
                   className="nb-btn nb-btn-sm"
                   onClick={() => {
                     navigator.clipboard.writeText(savedWords.join(', '));
-                    alert('Saved words copied to clipboard!');
+                    alert('All saved words copied to clipboard! Go flex in the group chat.');
                   }}
                 >
                   <Copy size={16} />
-                  COPY ALL
+                  COPY ENTIRE LIST 📋
                 </button>
                 <button 
                   className="nb-btn nb-btn-sm nb-btn-coral"
                   onClick={() => setSavedWords([])}
                 >
-                  CLEAR ALL
+                  WIPE LIST 🗑️
                 </button>
               </div>
             )}
@@ -854,13 +854,13 @@ export function App() {
         }}>
           <div style={{ display: 'flex', alignItems: 'center', gap: '0.6rem', flexWrap: 'wrap' }}>
             <span className="nb-badge" style={{ backgroundColor: '#000', color: '#fff', fontSize: '0.8rem' }}>
-              100% FREE & AD-FREE FOREVER
+              100% FREE NO CAPPING
             </span>
             <span className="nb-badge" style={{ backgroundColor: 'var(--yellow)', fontSize: '0.8rem' }}>
               ⚖️ SUE-PROOF ARBITRATION ACTIVE
             </span>
             <span className="nb-badge" style={{ backgroundColor: 'var(--lime)', fontSize: '0.8rem' }}>
-              ADA / WCAG 2.1 COMPLIANT
+              ACCESSIBLE FOR EVERYONE
             </span>
           </div>
 
@@ -871,28 +871,28 @@ export function App() {
               style={{ fontSize: '0.75rem', padding: '0.35rem 0.65rem' }}
               onClick={() => openLegal('terms')}
             >
-              TERMS OF USE
+              TERMS (DON'T SUE US)
             </button>
             <button 
               className="nb-btn nb-btn-sm" 
               style={{ fontSize: '0.75rem', padding: '0.35rem 0.65rem' }}
               onClick={() => openLegal('privacy')}
             >
-              PRIVACY (GDPR/CCPA)
+              PRIVACY (WE TRACK ZERO STUFF)
             </button>
             <button 
               className="nb-btn nb-btn-sm" 
               style={{ fontSize: '0.75rem', padding: '0.35rem 0.65rem' }}
               onClick={() => openLegal('ada')}
             >
-              ACCESSIBILITY (ADA)
+              ACCESSIBILITY (FOR EVERYONE)
             </button>
             <button 
               className="nb-btn nb-btn-sm" 
               style={{ fontSize: '0.75rem', padding: '0.35rem 0.65rem' }}
               onClick={() => openLegal('disclaimer')}
             >
-              DISCLAIMERS & INDEMNITY
+              DISCLAIMER (IT'S A FREE TOOL)
             </button>
           </div>
         </div>
@@ -907,7 +907,7 @@ export function App() {
           color: '#333'
         }}>
           <p>
-            <strong>LEGAL NOTICE & STATUTORY DISCLAIMER:</strong> "VERY +" is an open-source lexicographical learning utility provided strictly on an "AS IS" and "AS AVAILABLE" basis pursuant to 17 U.S.C. § 107 (Fair Use). Synonyms and phrasing suggestions are generated for educational and stylistic exploration only. The operators disclaim all express or implied warranties, including fitness for a particular academic, professional, legal, or commercial purpose. Use does not constitute professional writing, medical, psychiatric, or legal counsel. No tracking cookies or PII collected. All disputes subject to binding individual arbitration.
+            <strong>REAL TALK (LEGAL DISCLAIMER):</strong> "VERY+" is a free vocabulary tool built for educational fun and self-improvement. It's provided strictly "AS IS" and "AS AVAILABLE" pursuant to 17 U.S.C. § 107 (Fair Use). Don't sue us if your English teacher still grades your essay harshly or if someone doesn't understand your fancy words. Zero trackers, zero cookies, zero PII collected. All disputes subject to binding individual arbitration.
           </p>
         </div>
 
@@ -922,7 +922,7 @@ export function App() {
           color: '#666'
         }}>
           <div>
-            © 2026 VERY+ VOCABULARY AMPLIFIER. ALL RIGHTS RESERVED. ZERO RADIUS APPLIED.
+            © 2026 VERY+. zero cookies, zero cringe, 100% free fr.
           </div>
           <div style={{ display: 'flex', gap: '0.5rem', flexWrap: 'wrap' }}>
             <span>100% FREE FOREVER</span>
@@ -931,7 +931,7 @@ export function App() {
             <span>•</span>
             <span>100% CLIENT STORAGE</span>
             <span>•</span>
-            <span>ZERO TELEMETRY</span>
+            <span>ZERO TRACKERS</span>
           </div>
         </div>
       </footer>
