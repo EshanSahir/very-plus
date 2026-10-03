@@ -1,7 +1,5 @@
-const CACHE_NAME = 'veryplus-v1';
-const ASSETS_TO_CACHE = [
-  '/',
-  '/index.html',
+const CACHE_NAME = 'veryplus-v3';
+const STATIC_ASSETS = [
   '/favicon.svg',
   '/manifest.json'
 ];
@@ -9,7 +7,7 @@ const ASSETS_TO_CACHE = [
 self.addEventListener('install', (event) => {
   event.waitUntil(
     caches.open(CACHE_NAME).then((cache) => {
-      return cache.addAll(ASSETS_TO_CACHE);
+      return cache.addAll(STATIC_ASSETS);
     }).then(() => self.skipWaiting())
   );
 });
@@ -20,6 +18,7 @@ self.addEventListener('activate', (event) => {
       return Promise.all(
         keys.map((key) => {
           if (key !== CACHE_NAME) {
+            console.log('[SW] Purging old cache:', key);
             return caches.delete(key);
           }
         })
@@ -29,23 +28,49 @@ self.addEventListener('activate', (event) => {
 });
 
 self.addEventListener('fetch', (event) => {
-  // Only cache GET requests, bypass external APIs like datamuse
-  if (event.request.method !== 'GET' || !event.request.url.startsWith(self.location.origin)) {
+  const url = new URL(event.request.url);
+
+  // Only handle same-origin GET requests
+  if (event.request.method !== 'GET' || url.origin !== self.location.origin) {
     return;
   }
 
-  event.respondWith(
-    caches.match(event.request).then((cachedResponse) => {
-      if (cachedResponse) {
-        // Return cache first, fetch in background to update
-        fetch(event.request).then((networkResponse) => {
-          if (networkResponse && networkResponse.status === 200) {
-            caches.open(CACHE_NAME).then((cache) => cache.put(event.request, networkResponse));
+  // Network-First for navigation requests (HTML pages)
+  if (event.request.mode === 'navigate') {
+    event.respondWith(
+      fetch(event.request)
+        .then((response) => {
+          if (response && response.status === 200) {
+            const clone = response.clone();
+            caches.open(CACHE_NAME).then((cache) => cache.put(event.request, clone));
           }
-        }).catch(() => {});
-        return cachedResponse;
+          return response;
+        })
+        .catch(() => {
+          return caches.match(event.request).then((cached) => cached || caches.match('/index.html'));
+        })
+    );
+    return;
+  }
+
+  // Do NOT intercept hashed JS/CSS assets - let browser handle HTTP cache & versioning cleanly
+  if (url.pathname.startsWith('/assets/')) {
+    return;
+  }
+
+  // Cache-First for static assets (icons, manifest)
+  event.respondWith(
+    caches.match(event.request).then((cached) => {
+      if (cached) {
+        return cached;
       }
-      return fetch(event.request);
+      return fetch(event.request).then((response) => {
+        if (response && response.status === 200 && (url.pathname.endsWith('.svg') || url.pathname.endsWith('.json') || url.pathname.endsWith('.woff2'))) {
+          const clone = response.clone();
+          caches.open(CACHE_NAME).then((cache) => cache.put(event.request, clone));
+        }
+        return response;
+      });
     })
   );
 });
