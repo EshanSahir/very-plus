@@ -31,10 +31,10 @@ export function LegalModal({ isOpen, onClose, initialTab = 'terms' }: LegalModal
             <Scale size={24} strokeWidth={2.5} />
             <div>
               <h2 id="legal-modal-title" style={{ fontSize: '1.25rem', fontWeight: 900, textTransform: 'uppercase' }}>
-                LEGAL & COMPLIANCE (THE SERIOUS PART)
+                TERMS & PRIVACY
               </h2>
               <span className="font-mono" style={{ fontSize: '0.7rem', fontWeight: 700 }}>
-                OUR LAWYER TOLD US TO PUT THIS HERE SO NOBODY TRIES TO SUE OVER VOCAB
+                STANDARD LEGAL INFORMATION FOR VERY+
               </span>
             </div>
           </div>
@@ -61,28 +61,28 @@ export function LegalModal({ isOpen, onClose, initialTab = 'terms' }: LegalModal
             onClick={() => setActiveTab('terms')}
           >
             <FileText size={15} />
-            TERMS (DON'T SUE US)
+            terms of service
           </button>
           <button 
             className={`legal-tab-btn ${activeTab === 'privacy' ? 'active' : ''}`}
             onClick={() => setActiveTab('privacy')}
           >
             <ShieldCheck size={15} />
-            PRIVACY (WE TRACK ZERO STUFF)
+            privacy
           </button>
           <button 
             className={`legal-tab-btn ${activeTab === 'ada' ? 'active' : ''}`}
             onClick={() => setActiveTab('ada')}
           >
             <Eye size={15} />
-            ACCESSIBILITY (FOR EVERYONE)
+            accessibility
           </button>
           <button 
             className={`legal-tab-btn ${activeTab === 'disclaimer' ? 'active' : ''}`}
             onClick={() => setActiveTab('disclaimer')}
           >
             <AlertTriangle size={15} />
-            DISCLAIMER (IT'S A FREE TOOL)
+            disclaimers
           </button>
         </div>
 
@@ -93,7 +93,7 @@ export function LegalModal({ isOpen, onClose, initialTab = 'terms' }: LegalModal
           {activeTab === 'terms' && (
             <div style={{ display: 'flex', flexDirection: 'column', gap: '1rem' }}>
               <div className="legal-notice-box">
-                <strong>TL;DR for normal humans:</strong> VERY+ is a free vocabulary tool. Use it to level up your essays, emails, or texts. Don't use it for shady stuff, don't try to sue us if you fail a spelling test, and remember everything is provided as-is with binding individual arbitration.
+                <strong>Summary:</strong> VERY+ is a free vocabulary tool built for writing and learning. Please use it respectfully. It's provided as-is with standard open-source liability limitations and individual arbitration.
               </div>
 
               <h3 className="legal-section-h">1. ACCEPTANCE OF TERMS</h3>
@@ -130,7 +130,7 @@ export function LegalModal({ isOpen, onClose, initialTab = 'terms' }: LegalModal
           {activeTab === 'privacy' && (
             <div style={{ display: 'flex', flexDirection: 'column', gap: '1rem' }}>
               <div className="legal-notice-box" style={{ backgroundColor: 'var(--lime)' }}>
-                <strong>TL;DR for normal humans:</strong> We literally collect zero personal data. No tracking cookies, no Google Analytics, no surveillance, no signups. Your saved words live solely in your own browser's localStorage. You are 100% anonymous.
+                <strong>Summary:</strong> We collect zero personal data. No tracking cookies, no analytics, no accounts. Your saved words are stored strictly on your own device.
               </div>
 
               <h3 className="legal-section-h">1. ZERO PERSONAL DATA COLLECTION</h3>
@@ -169,7 +169,7 @@ export function LegalModal({ isOpen, onClose, initialTab = 'terms' }: LegalModal
           {activeTab === 'ada' && (
             <div style={{ display: 'flex', flexDirection: 'column', gap: '1rem' }}>
               <div className="legal-notice-box" style={{ backgroundColor: 'var(--cyan)' }}>
-                <strong>TL;DR for normal humans:</strong> Everyone deserves good software. We built this with full keyboard navigation, screen reader labels, high contrast, and zero motion traps. If anything feels broken or hard to use, tell us and we'll fix it ASAP.
+                <strong>Summary:</strong> Built to be accessible to everyone, with semantic HTML, keyboard navigation, high-contrast colors, and screen reader labels.
               </div>
 
               <h3 className="legal-section-h">1. ACCESSIBILITY ARCHITECTURE</h3>
@@ -195,7 +195,7 @@ export function LegalModal({ isOpen, onClose, initialTab = 'terms' }: LegalModal
           {activeTab === 'disclaimer' && (
             <div style={{ display: 'flex', flexDirection: 'column', gap: '1rem' }}>
               <div className="legal-notice-box" style={{ backgroundColor: '#FFD2CC' }}>
-                <strong>TL;DR for normal humans:</strong> If you say "colossal" instead of "very big" and your English professor still gives you a B-, don't blame us. We're here to help you sound smarter, but use common sense!
+                <strong>Summary:</strong> Word suggestions are for creative and stylistic exploration. Use your best judgment in formal, academic, or professional writing.
               </div>
 
               <h3 className="legal-section-h">1. NO PROFESSIONAL, ACADEMIC, OR LEGAL ADVICE</h3>
@@ -234,14 +234,14 @@ export function LegalModal({ isOpen, onClose, initialTab = 'terms' }: LegalModal
           gap: '0.75rem'
         }}>
           <span className="font-mono" style={{ fontSize: '0.75rem', fontWeight: 800 }}>
-            REVISION 2026 // ALL RIGHTS RESERVED
+            REVISION 2026 // OPEN SOURCE
           </span>
           <button 
             className="nb-btn nb-btn-sm nb-btn-yellow"
             onClick={onClose}
           >
             <Check size={16} />
-            BET / I AGREE & ACCEPT 👍
+            close
           </button>
         </div>
       </div>
