@@ -2,7 +2,7 @@
 
 # VERY+
 
-**Find better words than *"very + [word]"*.**
+**Because *"very very very tired"* is not an essay strategy.**
 
 [![Live Demo](https://img.shields.io/badge/Live%20Demo-veryplus--app.surge.sh-FFE600?style=for-the-badge&logo=google-chrome&logoColor=000&labelColor=000)](https://veryplus-app.surge.sh)
 [![React](https://img.shields.io/badge/React-19.2-61DAFB?style=for-the-badge&logo=react&logoColor=000&labelColor=000)](https://react.dev)
