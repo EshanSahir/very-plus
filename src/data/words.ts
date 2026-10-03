@@ -5,6 +5,7 @@ export interface WordEntry {
   phonetic: string;      // e.g. "/kəˈlɒs.əl/"
   partOfSpeech: string;  // e.g. "adjective"
   definition: string;    // concise explanation
+  note?: string;         // dry, relatable context note
   alternatives: { word: string; nuance?: string }[];
   example: {
     before: string;
@@ -22,6 +23,7 @@ export const WORD_DATABASE: WordEntry[] = [
     phonetic: "/kəˈlɒs.əl/",
     partOfSpeech: "adjective",
     definition: "Extremely large, gigantic, or monumental in scale or power.",
+    note: "Because 'super humongous big' isn't cutting it in college.",
     alternatives: [
       { word: "MASSIVE", nuance: "Dense, heavy, and immense in physical volume." },
       { word: "GIGANTIC", nuance: "Resembling a giant; towering over surroundings." },
@@ -41,6 +43,7 @@ export const WORD_DATABASE: WordEntry[] = [
     phonetic: "/ˈmɪn.ə.skjuːl/",
     partOfSpeech: "adjective",
     definition: "Extremely small; tiny or barely perceptible.",
+    note: "Like your remaining patience on a Monday morning.",
     alternatives: [
       { word: "MICROSCOPIC", nuance: "Invisible to the naked eye; requiring magnification." },
       { word: "DIMINUTIVE", nuance: "Charming or notably compact in stature." },
@@ -201,6 +204,7 @@ export const WORD_DATABASE: WordEntry[] = [
     phonetic: "/ˈfjʊə.ri.əs/",
     partOfSpeech: "adjective",
     definition: "Extremely angry; full of violent wild rage or resentment.",
+    note: "Save this for when someone unplugs your phone at 3%.",
     alternatives: [
       { word: "IRATE", nuance: "Incensed with sharp verbal indignation." },
       { word: "LIVID", nuance: "So furious that facial color changes." },
@@ -220,6 +224,7 @@ export const WORD_DATABASE: WordEntry[] = [
     phonetic: "/ekˈstæt.ɪk/",
     partOfSpeech: "adjective",
     definition: "Feeling overwhelming joy, bliss, or rapturous delight.",
+    note: "Scientifically proven to make you smile 12% wider.",
     alternatives: [
       { word: "EUPHORIC", nuance: "Intensely high state of elation and confidence." },
       { word: "JUBILANT", nuance: "Triumphant celebration and expressive joy." },
@@ -239,6 +244,7 @@ export const WORD_DATABASE: WordEntry[] = [
     phonetic: "/ˈsɒr.əʊ.fəl/",
     partOfSpeech: "adjective",
     definition: "Filled with or evoking deep, heavy, and profound grief.",
+    note: "Queue the melancholic indie playlist.",
     alternatives: [
       { word: "DESPONDENT", nuance: "In low spirits from loss of hope or courage." },
       { word: "HEARTBROKEN", nuance: "Overwhelmed by personal emotional grief." },
@@ -258,6 +264,7 @@ export const WORD_DATABASE: WordEntry[] = [
     phonetic: "/ˈpet.rɪ.faɪd/",
     partOfSpeech: "adjective",
     definition: "Paralyzed with terror; rendered unable to move or react.",
+    note: "For when you hear a thud downstairs at 3 AM.",
     alternatives: [
       { word: "TERRIFIED", nuance: "Filled with extreme fear and panic." },
       { word: "HORRIFIED", nuance: "Shocked and repulsed by something dreadful." },
@@ -293,6 +300,7 @@ export const WORD_DATABASE: WordEntry[] = [
     phonetic: "/ɪɡˈzɔː.stɪd/",
     partOfSpeech: "adjective",
     definition: "Completely depleted of physical or mental energy.",
+    note: "Because 'I\\'m very sleepy' sounds like you're five years old.",
     alternatives: [
       { word: "LETHARGIC", nuance: "Sluggish and lacking the will to move." },
       { word: "DRAINED", nuance: "Sapped of emotional and mental reserves." },
@@ -400,6 +408,7 @@ export const WORD_DATABASE: WordEntry[] = [
     phonetic: "/ˈbrɪl.jənt/",
     partOfSpeech: "adjective",
     definition: "Exceptionally clever, astute, or intellectually luminous.",
+    note: "What you think you sound like after using this app for 4 minutes.",
     alternatives: [
       { word: "INGENIOUS", nuance: "Gifted in creative, inventive problem solving." },
       { word: "ERUDITE", nuance: "Having profound, scholarly, formal knowledge." },
@@ -418,6 +427,7 @@ export const WORD_DATABASE: WordEntry[] = [
     phonetic: "/ˈæs.ɪ.naɪn/",
     partOfSpeech: "adjective",
     definition: "Extremely foolish, utterly senseless, or devoid of reason.",
+    note: "Use carefully. This one will actually hurt feelings.",
     alternatives: [
       { word: "INANE", nuance: "Pointless, silly, and lacking substantive thought." },
       { word: "FATUOUS", nuance: "Smugly foolish and complacent." },
@@ -522,6 +532,7 @@ export const WORD_DATABASE: WordEntry[] = [
     phonetic: "/ˈtiː.di.əs/",
     partOfSpeech: "adjective",
     definition: "Tiresome, monotonous, and dragging on without variety.",
+    note: "A polite way to describe the meeting you're currently in.",
     alternatives: [
       { word: "MONOTONOUS", nuance: "Unvarying in pitch, tone, or repetitive task." },
       { word: "MIND-NUMBING", nuance: "So boring it numbs intellectual engagement." },
@@ -540,6 +551,7 @@ export const WORD_DATABASE: WordEntry[] = [
     phonetic: "/ˈfæs.ən.eɪ.tɪŋ/",
     partOfSpeech: "adjective",
     definition: "Extremely intriguing, captivating, and absorbing attention.",
+    note: "When you want to sound invested without saying 'cool'.",
     alternatives: [
       { word: "CAPTIVATING", nuance: "Holding attention by sheer charm or beauty." },
       { word: "RIVETING", nuance: "Gripping interest so firmly you cannot look away." },
@@ -560,6 +572,7 @@ export const WORD_DATABASE: WordEntry[] = [
     phonetic: "/ˈfriː.zɪŋ/",
     partOfSpeech: "adjective",
     definition: "Intensely cold; at or below the point of crystallization.",
+    note: "For when your room is 2 degrees and you refuse to put on a hoodie.",
     alternatives: [
       { word: "FRIGID", nuance: "Intensely cold and desolate." },
       { word: "GLACIAL", nuance: "Icy, slow-moving, and biting cold." },
@@ -579,6 +592,7 @@ export const WORD_DATABASE: WordEntry[] = [
     phonetic: "/ˈskɔː.tʃɪŋ/",
     partOfSpeech: "adjective",
     definition: "Intensely hot; causing blistering surface heat or burns.",
+    note: "Summer humidity has entered the chat.",
     alternatives: [
       { word: "SCALDING", nuance: "Hot enough to burn skin or surfaces directly." },
       { word: "SWELTERING", nuance: "Oppressively hot and humid." },
@@ -826,6 +840,7 @@ export const WORD_DATABASE: WordEntry[] = [
     phonetic: "/ˈræv.ən.əs/",
     partOfSpeech: "adjective",
     definition: "Extremely hungry; driven by a fierce appetite.",
+    note: "Sounds like you haven't eaten a meal since 1845.",
     alternatives: [
       { word: "FAMISHED", nuance: "Suffering intense physical hunger." },
       { word: "STARVED", nuance: "Depleted from lack of food sustenance." }
@@ -843,6 +858,7 @@ export const WORD_DATABASE: WordEntry[] = [
     phonetic: "/pɑːtʃt/",
     partOfSpeech: "adjective",
     definition: "Suffering from a dry throat and severe dehydration.",
+    note: "Like wandering the Sahara without a water bottle.",
     alternatives: [
       { word: "DEHYDRATED", nuance: "Physically depleted of required bodily fluids." }
     ],
@@ -879,6 +895,7 @@ export const WORD_DATABASE: WordEntry[] = [
     phonetic: "/swɪft/",
     partOfSpeech: "adjective",
     definition: "Moving or capable of moving with immense velocity and grace.",
+    note: "Faster than your friend replying 'on my way' when they're still in bed.",
     alternatives: [
       { word: "RAPID", nuance: "Happening or occurring in brief succession." },
       { word: "BLISTERING", nuance: "Speed so extreme it scorches records." },
@@ -898,6 +915,7 @@ export const WORD_DATABASE: WordEntry[] = [
     phonetic: "/ˈslʌɡ.ɪʃ/",
     partOfSpeech: "adjective",
     definition: "Slow-moving, lazy, or lacking energy and response.",
+    note: "Moving at the speed of a government office on a Friday.",
     alternatives: [
       { word: "LEISURELY", nuance: "Unhurried and deliberately unbothered." },
       { word: "GLACIAL", nuance: "Proceeding at an imperceptibly slow rate." },
@@ -974,6 +992,7 @@ export const WORD_DATABASE: WordEntry[] = [
     phonetic: "/ˈæf.lu.ənt/",
     partOfSpeech: "adjective",
     definition: "Having an abundance of wealth, property, and prosperous resources.",
+    note: "Generational wealth territory.",
     alternatives: [
       { word: "OPULENT", nuance: "Ostentatiously lavish and luxurious." },
       { word: "PROSPEROUS", nuance: "Flourishing financially and steadily growing." }
@@ -991,6 +1010,7 @@ export const WORD_DATABASE: WordEntry[] = [
     phonetic: "/ˈdes.tɪ.tʃuːt/",
     partOfSpeech: "adjective",
     definition: "Without the basic necessities of life; completely impoverished.",
+    note: "Current bank account status 3 days before payday.",
     alternatives: [
       { word: "IMPOVERISHED", nuance: "Reduced to poverty by misfortune or neglect." },
       { word: "PENNILESS", nuance: "Having zero financial funds remaining." }
@@ -1008,6 +1028,7 @@ export const WORD_DATABASE: WordEntry[] = [
     phonetic: "/ɪɡˈzɔː.bɪ.tənt/",
     partOfSpeech: "adjective",
     definition: "Unreasonably high priced; exceeding fair bounds.",
+    note: "Two sips of airport coffee.",
     alternatives: [
       { word: "EXTORTIONATE", nuance: "Unjustly and excessively demanding." },
       { word: "PROHIBITIVE", nuance: "So costly that it prevents purchase." },
@@ -1168,6 +1189,7 @@ export const WORD_DATABASE: WordEntry[] = [
     phonetic: "/ɪkˈskwɪz.ɪt/",
     partOfSpeech: "adjective",
     definition: "Of rare beauty and delicate, finely wrought craftsmanship.",
+    note: "Guaranteed to sound 10x more poetic than 'she looks nice'.",
     alternatives: [
       { word: "GORGEOUS", nuance: "Visually dazzling and intensely attractive." },
       { word: "STUNNING", nuance: "So beautiful that it leaves observers breathless." },
@@ -1187,6 +1209,7 @@ export const WORD_DATABASE: WordEntry[] = [
     phonetic: "/ˈhɪd.i.əs/",
     partOfSpeech: "adjective",
     definition: "Frightful, grotesque, or deeply repulsive to the sight.",
+    note: "A polite roast that still leaves a mark.",
     alternatives: [
       { word: "GROTESQUE", nuance: "Distorted, bizarre, and unnaturally shaped." },
       { word: "MONSTROUS", nuance: "Unnatural and horrifying in form." }
