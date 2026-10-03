@@ -1,7 +1,7 @@
 {
-  "name": "VERY+ // stop saying \"very\" bro",
+  "name": "VERY+ — stop saying \"very\"",
   "short_name": "VERY+",
-  "description": "Stop saying 'very + word' like an NPC. Turn basic words into actual vocabulary. 100% free, no ads, no bs.",
+  "description": "Find better words than 'very + adjective'. 100% free, no ads, no tracking.",
   "start_url": "/",
   "scope": "/",
   "display": "standalone",
