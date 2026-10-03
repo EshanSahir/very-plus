@@ -6,6 +6,8 @@
   "scripts": {
     "dev": "vite",
     "build": "tsc -b && vite build && node scripts/post-build.js",
+    "studio": "vite studio --config studio/vite.config.ts --port 5174 --open",
+    "build:studio": "vite build studio --config studio/vite.config.ts",
     "lint": "oxlint",
     "preview": "vite preview"
   },
