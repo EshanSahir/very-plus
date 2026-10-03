@@ -31,10 +31,10 @@ export function LegalModal({ isOpen, onClose, initialTab = 'terms' }: LegalModal
             <Scale size={24} strokeWidth={2.5} />
             <div>
               <h2 id="legal-modal-title" style={{ fontSize: '1.25rem', fontWeight: 900, textTransform: 'uppercase' }}>
-                LEGAL & COMPLIANCE CENTER
+                LEGAL & COMPLIANCE (THE SERIOUS PART)
               </h2>
               <span className="font-mono" style={{ fontSize: '0.7rem', fontWeight: 700 }}>
-                PROTECTED UNDER GLOBAL FAIR USE & LIMITATION OF LIABILITY STATUTES
+                OUR LAWYER TOLD US TO PUT THIS HERE SO NOBODY TRIES TO SUE OVER VOCAB
               </span>
             </div>
           </div>
@@ -61,28 +61,28 @@ export function LegalModal({ isOpen, onClose, initialTab = 'terms' }: LegalModal
             onClick={() => setActiveTab('terms')}
           >
             <FileText size={15} />
-            TERMS OF SERVICE
+            TERMS (DON'T SUE US)
           </button>
           <button 
             className={`legal-tab-btn ${activeTab === 'privacy' ? 'active' : ''}`}
             onClick={() => setActiveTab('privacy')}
           >
             <ShieldCheck size={15} />
-            PRIVACY (GDPR/CCPA)
+            PRIVACY (WE TRACK ZERO STUFF)
           </button>
           <button 
             className={`legal-tab-btn ${activeTab === 'ada' ? 'active' : ''}`}
             onClick={() => setActiveTab('ada')}
           >
             <Eye size={15} />
-            ADA / WCAG ACCESSIBILITY
+            ACCESSIBILITY (FOR EVERYONE)
           </button>
           <button 
             className={`legal-tab-btn ${activeTab === 'disclaimer' ? 'active' : ''}`}
             onClick={() => setActiveTab('disclaimer')}
           >
             <AlertTriangle size={15} />
-            DISCLAIMERS & INDEMNITY
+            DISCLAIMER (IT'S A FREE TOOL)
           </button>
         </div>
 
@@ -93,12 +93,12 @@ export function LegalModal({ isOpen, onClose, initialTab = 'terms' }: LegalModal
           {activeTab === 'terms' && (
             <div style={{ display: 'flex', flexDirection: 'column', gap: '1rem' }}>
               <div className="legal-notice-box">
-                <strong>IMPORTANT:</strong> PLEASE READ THESE TERMS CAREFULLY. BY USING "VERY +", YOU AGREE TO BE FULLY BOUND BY THESE LEGAL PROVISIONS, INCLUDING AN EXPRESS BINDING ARBITRATION AND CLASS ACTION WAIVER.
+                <strong>TL;DR for normal humans:</strong> VERY+ is a free vocabulary tool. Use it to level up your essays, emails, or texts. Don't use it for shady stuff, don't try to sue us if you fail a spelling test, and remember everything is provided as-is with binding individual arbitration.
               </div>
 
               <h3 className="legal-section-h">1. ACCEPTANCE OF TERMS</h3>
               <p>
-                By accessing, browsing, or interacting with <strong>VERY + // VOCAB AMPLIFIER</strong> ("the Application"), you ("the User") enter into a legally binding contract with the developers, operators, and hosting entities ("the Providers"). If you do not consent to any part of these terms, you must discontinue all use immediately.
+                By accessing, browsing, or interacting with <strong>VERY+</strong> ("the Application"), you ("the User") enter into a legally binding contract with the developers, operators, and hosting entities ("the Providers"). If you do not consent to any part of these terms, you must discontinue all use immediately.
               </p>
 
               <h3 className="legal-section-h">2. "AS IS" AND "AS AVAILABLE" WARRANTY DISCLAIMER</h3>
@@ -130,7 +130,7 @@ export function LegalModal({ isOpen, onClose, initialTab = 'terms' }: LegalModal
           {activeTab === 'privacy' && (
             <div style={{ display: 'flex', flexDirection: 'column', gap: '1rem' }}>
               <div className="legal-notice-box" style={{ backgroundColor: 'var(--lime)' }}>
-                <strong>ZERO SURVEILLANCE COMMITMENT:</strong> We do not track you, sell your information, use third-party advertising trackers, or fingerprint your hardware.
+                <strong>TL;DR for normal humans:</strong> We literally collect zero personal data. No tracking cookies, no Google Analytics, no surveillance, no signups. Your saved words live solely in your own browser's localStorage. You are 100% anonymous.
               </div>
 
               <h3 className="legal-section-h">1. ZERO PERSONAL DATA COLLECTION</h3>
@@ -169,7 +169,7 @@ export function LegalModal({ isOpen, onClose, initialTab = 'terms' }: LegalModal
           {activeTab === 'ada' && (
             <div style={{ display: 'flex', flexDirection: 'column', gap: '1rem' }}>
               <div className="legal-notice-box" style={{ backgroundColor: 'var(--cyan)' }}>
-                <strong>ADA TITLE III COMPLIANCE PLEDGE:</strong> Designed to meet and exceed Web Content Accessibility Guidelines (WCAG) 2.1 Levels A, AA, and AAA standards to ensure universal digital access.
+                <strong>TL;DR for normal humans:</strong> Everyone deserves good software. We built this with full keyboard navigation, screen reader labels, high contrast, and zero motion traps. If anything feels broken or hard to use, tell us and we'll fix it ASAP.
               </div>
 
               <h3 className="legal-section-h">1. ACCESSIBILITY ARCHITECTURE</h3>
@@ -195,7 +195,7 @@ export function LegalModal({ isOpen, onClose, initialTab = 'terms' }: LegalModal
           {activeTab === 'disclaimer' && (
             <div style={{ display: 'flex', flexDirection: 'column', gap: '1rem' }}>
               <div className="legal-notice-box" style={{ backgroundColor: '#FFD2CC' }}>
-                <strong>NO PROFESSIONAL ADVICE / EDUCATIONAL PURPOSES ONLY:</strong> This software is an informational language exploration tool.
+                <strong>TL;DR for normal humans:</strong> If you say "colossal" instead of "very big" and your English professor still gives you a B-, don't blame us. We're here to help you sound smarter, but use common sense!
               </div>
 
               <h3 className="legal-section-h">1. NO PROFESSIONAL, ACADEMIC, OR LEGAL ADVICE</h3>
@@ -234,14 +234,14 @@ export function LegalModal({ isOpen, onClose, initialTab = 'terms' }: LegalModal
           gap: '0.75rem'
         }}>
           <span className="font-mono" style={{ fontSize: '0.75rem', fontWeight: 800 }}>
-            REVISION 2026.10 // LEGAL HARDENED
+            REVISION 2026 // ALL RIGHTS RESERVED
           </span>
           <button 
             className="nb-btn nb-btn-sm nb-btn-yellow"
             onClick={onClose}
           >
             <Check size={16} />
-            I UNDERSTAND & ACCEPT
+            BET / I AGREE & ACCEPT 👍
           </button>
         </div>
       </div>
