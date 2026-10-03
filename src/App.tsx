@@ -11,9 +11,8 @@ import {
   BookOpen, 
   Zap, 
   FileText, 
-  X,
-  Search,
-  ArrowRight,
+  X, 
+  Search, 
   TrendingUp
 } from 'lucide-react';
 import confetti from 'canvas-confetti';
@@ -23,6 +22,64 @@ import { LegalModal } from './components/LegalModal';
 import { ComplianceBanner } from './components/ComplianceBanner';
 
 type TabMode = 'formula' | 'directory' | 'quiz' | 'upgrader';
+
+interface EasterEgg {
+  title: string;
+  desc: string;
+  icon: string;
+}
+
+function getEasterEgg(val: string): EasterEgg | null {
+  const clean = val.trim().toLowerCase();
+  if (!clean) return null;
+
+  if (clean === 'very') {
+    return {
+      title: "VERY + VERY?",
+      desc: "You're dividing by zero. Stop.",
+      icon: "⚠️"
+    };
+  }
+
+  const brainrot = ['rizz', 'skibidi', 'sigma', 'gyatt', 'fanum', 'cap', 'bussin', 'mewing', 'yeet', 'bruh', 'sus', 'ong', 'fr fr'];
+  if (brainrot.includes(clean)) {
+    return {
+      title: "WE DON'T DO THAT HERE",
+      desc: "Have some self-respect.",
+      icon: "⛔"
+    };
+  }
+
+  const matchingStrong = WORD_DATABASE.find(w => w.strong.toLowerCase() === clean);
+  const fancyWords = ['colossal', 'exquisite', 'ephemeral', 'meticulous', 'ravenous', 'livid', 'astute', 'tedious', 'frigid', 'serene', 'indolent', 'plethora', 'ubiquitous', 'ineffable', 'magnificent'];
+  if (matchingStrong || fancyWords.includes(clean)) {
+    return {
+      title: "YOU ALREADY KNOW THIS WORD",
+      desc: "Why are you here? Go back to reading Shakespeare.",
+      icon: "🎓"
+    };
+  }
+
+  const smashRegex = /^(asdf|qwer|zxcv|hjkl|jkl;|dfgh|fghj)/;
+  const vowels = (clean.match(/[aeiouy]/g) || []).length;
+  if (smashRegex.test(clean) || (clean.length >= 6 && vowels === 0)) {
+    return {
+      title: "KEYBOARD SMASH DETECTED",
+      desc: "Are you typing with your elbows or did your cat walk on the keyboard?",
+      icon: "⌨️"
+    };
+  }
+
+  if (clean.length === 1 && clean >= 'a' && clean <= 'z') {
+    return {
+      title: "JUST ONE LETTER?",
+      desc: "Give us a little more to work with here.",
+      icon: "👀"
+    };
+  }
+
+  return null;
+}
 
 export function App() {
   const [activeTab, setActiveTab] = useState<TabMode>('formula');
@@ -42,6 +99,11 @@ export function App() {
   const [isLoading, setIsLoading] = useState<boolean>(false);
   const [copiedSentence, setCopiedSentence] = useState<boolean>(false);
   const [copiedWord, setCopiedWord] = useState<boolean>(false);
+  const [copyToast, setCopyToast] = useState<string | null>(null);
+
+  // Easter Egg & Spam States
+  const randomClicksRef = useRef<number[]>([]);
+  const [spamWarning, setSpamWarning] = useState<string | null>(null);
   
   // Saved Words State
   const [savedWords, setSavedWords] = useState<string[]>(() => {
@@ -63,6 +125,7 @@ export function App() {
   const [quizScore, setQuizScore] = useState<number>(0);
   const [quizStreak, setQuizStreak] = useState<number>(0);
   const [quizSelectedAnswer, setQuizSelectedAnswer] = useState<string | null>(null);
+  const [quizFeedback, setQuizFeedback] = useState<{ isCorrect: boolean; message: string } | null>(null);
   const [quizCurrentQuestion, setQuizCurrentQuestion] = useState<{
     entry: WordEntry;
     options: string[];
@@ -71,7 +134,7 @@ export function App() {
 
   // Upgrader State
   const [paragraphInput, setParagraphInput] = useState<string>(
-    "It was a very cold morning. I was very tired and felt very hungry, but the sunrise over the mountains was very beautiful."
+    "I was very tired so I drank a very big coffee, but my boss was very angry because the report was very bad and very late. It was a very cold morning and I felt very sad."
   );
 
   const searchDebounceRef = useRef<number | null>(null);
@@ -94,6 +157,14 @@ export function App() {
   const handleLookup = (val: string) => {
     const trimmed = val.trim().toLowerCase();
     if (!trimmed) {
+      setCurrentWord(null);
+      setIsLoading(false);
+      return;
+    }
+
+    // Check easter eggs first
+    const egg = getEasterEgg(trimmed);
+    if (egg) {
       setCurrentWord(null);
       setIsLoading(false);
       return;
@@ -123,9 +194,17 @@ export function App() {
   };
 
   const handleRandomWord = () => {
+    const now = Date.now();
+    randomClicksRef.current = [...randomClicksRef.current.filter(t => now - t < 2500), now];
+    if (randomClicksRef.current.length >= 4) {
+      setSpamWarning("Slow down, you're not going to memorize all of these in 10 seconds.");
+      setTimeout(() => setSpamWarning(null), 3500);
+    }
+
     const random = WORD_DATABASE[Math.floor(Math.random() * WORD_DATABASE.length)];
     setInputValue(random.base);
     setCurrentWord(random);
+    setActiveTab('formula');
   };
 
   const toggleSaveWord = (word: string) => {
@@ -141,10 +220,28 @@ export function App() {
     navigator.clipboard.writeText(text);
     if (isSentence) {
       setCopiedSentence(true);
-      setTimeout(() => setCopiedSentence(false), 2000);
+      const sentenceLines = [
+        "Copied. We'll pretend you wrote this yourself.",
+        "Copied. Your teacher is gonna think you hired a ghostwriter.",
+        "Copied. Sounding articulate is now complete."
+      ];
+      setCopyToast(sentenceLines[Math.floor(Math.random() * sentenceLines.length)]);
+      setTimeout(() => {
+        setCopiedSentence(false);
+        setCopyToast(null);
+      }, 3000);
     } else {
       setCopiedWord(true);
-      setTimeout(() => setCopiedWord(false), 2000);
+      const wordLines = [
+        "Copied. Go sound smart in your group chat.",
+        "Copied. Don't mispronounce it in public though.",
+        "Copied. Go hit someone with this word."
+      ];
+      setCopyToast(wordLines[Math.floor(Math.random() * wordLines.length)]);
+      setTimeout(() => {
+        setCopiedWord(false);
+        setCopyToast(null);
+      }, 3000);
     }
   };
 
@@ -169,6 +266,7 @@ export function App() {
       correct: target.strong
     });
     setQuizSelectedAnswer(null);
+    setQuizFeedback(null);
   };
 
   useEffect(() => {
@@ -185,6 +283,16 @@ export function App() {
       const newStreak = quizStreak + 1;
       setQuizStreak(newStreak);
       setQuizScore(s => s + 10 * newStreak);
+      const correctPraise = [
+        "Correct. Look at you.",
+        "Spot on. Pure intellect.",
+        "You actually knew that? Respect.",
+        "Flawless. Brain cells on point."
+      ];
+      setQuizFeedback({
+        isCorrect: true,
+        message: correctPraise[Math.floor(Math.random() * correctPraise.length)]
+      });
       if (newStreak % 3 === 0) {
         confetti({
           particleCount: 80,
@@ -194,16 +302,52 @@ export function App() {
       }
     } else {
       setQuizStreak(0);
+      const wrongRoast = [
+        "Nope. Nice try guessing though.",
+        "Oof. Let's pretend that didn't happen.",
+        "Close enough, if we were playing horseshoes.",
+        "Incorrect. Maybe try reading the definition next time."
+      ];
+      setQuizFeedback({
+        isCorrect: false,
+        message: wrongRoast[Math.floor(Math.random() * wrongRoast.length)]
+      });
     }
 
     setTimeout(() => {
+      setQuizSelectedAnswer(null);
+      setQuizFeedback(null);
       setQuizIndex(i => i + 1);
       generateQuizQuestion();
-    }, 1200);
+    }, 1400);
   };
 
-  // Directory categories
-  const categories = ['All', 'Scale', 'Emotion', 'Intellect', 'Physical', 'Speed', 'Quality', 'Character', 'Atmosphere', 'Appearance'];
+  const getStreakLabel = (streak: number) => {
+    if (streak === 0) return "streak: 0 (we all start somewhere)";
+    if (streak === 1) return "streak: 1 (a humble beginning)";
+    if (streak === 2) return "streak: 2 (getting warm)";
+    if (streak === 3) return "streak: 3 (okay look at you retaining information)";
+    if (streak === 4) return "streak: 4 (brain cells firing)";
+    if (streak === 5) return "streak: 5 (someone's feeling dangerous today)";
+    if (streak < 10) return `streak: ${streak} 🔥 (don't choke now)`;
+    return `streak: ${streak} 🔥 (okay nerd, go touch some grass)`;
+  };
+
+  // Directory categories & funny sublabels
+  const categoryFilters = ['All', 'Scale', 'Emotion', 'Intellect', 'Physical', 'Speed', 'Quality', 'Character', 'Atmosphere', 'Appearance'];
+
+  const categoryLabels: Record<string, string> = {
+    'All': 'all words',
+    'Scale': 'Scale (stop calling everything "huge")',
+    'Emotion': 'Emotions (for when you\'re overwhelmed)',
+    'Intellect': 'Brain (sound 35% more intellectual)',
+    'Physical': 'Physical (body & sensations)',
+    'Speed': 'Speed (sluggish to supersonic)',
+    'Quality': 'Quality (stop saying "it\'s good")',
+    'Atmosphere': 'Vibes (setting the mood)',
+    'Character': 'Personalities (roast or praise people)',
+    'Appearance': 'Aesthetic (stop saying "pretty")'
+  };
 
   const filteredWords = WORD_DATABASE.filter(w => {
     const matchesCategory = selectedCategory === 'All' || w.category === selectedCategory;
@@ -214,7 +358,17 @@ export function App() {
     return matchesCategory && matchesSearch;
   });
 
-  // Paragraph Upgrader parsing
+  // Paragraph Upgrader parsing & diagnosis
+  const veryCount = (paragraphInput.match(/\bvery\s+[a-zA-Z]+/gi) || []).length;
+
+  const getVeryDiagnosis = (count: number) => {
+    if (count === 0) return '0 "verys" found. Wait, you actually know how to write? Why are you even on this site?';
+    if (count <= 2) return `Only ${count} found. Honestly respectable, but let's make it spotless.`;
+    if (count <= 5) return `Found ${count} counts of "very". Purged and saved your reputation.`;
+    if (count <= 10) return `Found ${count} counts of "very". Absolute crime scene. Fixing it now.`;
+    return `Medical emergency. Your vocabulary is on life support (${count} "verys"). Don't panic, we fixed it.`;
+  };
+
   const renderUpgradedParagraph = () => {
     if (!paragraphInput.trim()) return null;
 
@@ -250,6 +404,8 @@ export function App() {
     );
   };
 
+  const easterEgg = getEasterEgg(inputValue);
+
   return (
     <div className="app-wrapper">
       {/* ADA Title III Accessibility Skip Link */}
@@ -257,27 +413,34 @@ export function App() {
         Skip to main content
       </a>
 
+      {/* Spam Click Toast */}
+      {spamWarning && (
+        <div className="spam-warning-banner" role="alert">
+          ⚠️ {spamWarning}
+        </div>
+      )}
+
       {/* Brand Header */}
       <header className="brand-bar" role="banner">
         <div className="logo-block">
           <span className="logo-title">VERY+</span>
-          <span className="logo-tag">drop the "very"</span>
+          <span className="logo-tag">your english teacher was right. stop using "very".</span>
         </div>
 
         <div className="header-actions">
           <button 
             className="nb-btn nb-btn-sm nb-btn-yellow"
             onClick={handleRandomWord}
-            title="Random word"
+            title="Pick a random word"
           >
             <Shuffle size={15} />
-            random
+            random (surprise me)
           </button>
 
           <button 
             className="nb-btn nb-btn-sm"
             onClick={() => setShowSavedModal(true)}
-            title="Saved words"
+            title="Saved words list"
           >
             <Bookmark size={15} />
             saved ({savedWords.length})
@@ -335,7 +498,7 @@ export function App() {
           {/* Card 2: User Input */}
           <div className="input-card">
             <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
-              <span className="card-label">YOUR WORD</span>
+              <span className="card-label">+ YOUR LAZY ADJECTIVE</span>
               <span className="font-mono uppercase" style={{ fontSize: '0.75rem', fontWeight: 700, color: '#777' }}>
                 {inputValue ? `${inputValue.length} CHARS` : 'TYPE ANY WORD'}
               </span>
@@ -347,10 +510,10 @@ export function App() {
                 className="formula-input"
                 value={inputValue}
                 onChange={handleInputChange}
-                placeholder="type a word... e.g. tired, cold, big, angry"
+                placeholder="type something lazy... like 'tired', 'mad', 'cold'"
                 autoFocus
                 spellCheck="false"
-                aria-label="Enter word to enhance"
+                aria-label="Enter lazy word to enhance"
               />
               {inputValue && (
                 <button 
@@ -365,7 +528,7 @@ export function App() {
 
             {/* Quick Word Chips */}
             <div className="chips-container">
-              <span className="chips-title">QUICK PICKS:</span>
+              <span className="chips-title">POPULAR LAZY WORDS:</span>
               <div className="chips-wrap">
                 {POPULAR_CHIPS.map(chip => (
                   <button
@@ -383,21 +546,31 @@ export function App() {
           {/* Equals Sign */}
           <div className="operator-sign" aria-hidden="true">=</div>
 
-          {/* Card 3: Elevated Vocabulary Result */}
-          {isLoading ? (
+          {/* Card 3: Elevated Vocabulary Result OR Easter Egg */}
+          {easterEgg ? (
+            <div className="empty-state-card" style={{ border: 'var(--border-thick) solid #000', backgroundColor: '#fffbe6' }}>
+              <div className="empty-state-icon" style={{ fontSize: '2rem' }}>
+                {easterEgg.icon}
+              </div>
+              <h2 className="empty-state-title">{easterEgg.title}</h2>
+              <p className="empty-state-desc" style={{ fontSize: '1.05rem', fontWeight: 600 }}>
+                {easterEgg.desc}
+              </p>
+            </div>
+          ) : isLoading ? (
             <div className="empty-state-card" aria-live="polite">
               <div className="empty-state-icon" style={{ backgroundColor: 'var(--yellow)' }}>
                 <Sparkles size={28} />
               </div>
-              <h2 className="empty-state-title">LOOKING UP WORDS...</h2>
-              <p className="empty-state-desc">Finding cleaner, stronger alternatives.</p>
+              <h2 className="empty-state-title">DIGGING THROUGH THE DICTIONARY...</h2>
+              <p className="empty-state-desc">Finding an alternative that makes you sound educated.</p>
             </div>
           ) : currentWord ? (
             <article className="result-card" role="region" aria-label="Elevated Vocabulary Result" aria-live="polite">
               {/* Header with power word */}
               <div className="result-card-header">
                 <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
-                  <span className="card-label">BETTER WORD</span>
+                  <span className="card-label">INSTEAD OF SAYING THAT:</span>
                   <span className="nb-badge" style={{ backgroundColor: '#000', color: '#fff' }}>
                     {currentWord.category || 'Quality'}
                   </span>
@@ -409,7 +582,7 @@ export function App() {
                     <button 
                       className="nb-btn nb-btn-sm nb-btn-yellow" 
                       onClick={() => speakWord(currentWord.strong)}
-                      title="Listen to pronunciation"
+                      title="Listen (so you don't embarrass yourself saying it out loud)"
                     >
                       <Volume2 size={16} />
                       LISTEN
@@ -448,6 +621,14 @@ export function App() {
                   "{currentWord.definition}"
                 </div>
 
+                {/* Relatable Context Note */}
+                {currentWord.note && (
+                  <div className="relatable-note-box">
+                    <span style={{ fontWeight: 800, textTransform: 'uppercase', marginRight: '0.4rem', color: '#000' }}>reality check:</span>
+                    <span>"{currentWord.note}"</span>
+                  </div>
+                )}
+
                 {/* Before vs After comparison */}
                 <div>
                   <div className="section-label" style={{ marginBottom: '0.5rem' }}>
@@ -456,11 +637,11 @@ export function App() {
                   </div>
                   <div className="transformation-grid">
                     <div className="transformation-pane pane-bad">
-                      <span className="trans-tag" style={{ color: '#C53030' }}>BEFORE:</span>
+                      <span className="trans-tag" style={{ color: '#C53030' }}>BEFORE (LAZY):</span>
                       <p className="trans-sentence">"{currentWord.example.before}"</p>
                     </div>
                     <div className="transformation-pane pane-good">
-                      <span className="trans-tag" style={{ color: '#276749' }}>BETTER:</span>
+                      <span className="trans-tag" style={{ color: '#276749' }}>BETTER (ACTUAL ELEVATED ENGLISH):</span>
                       <p className="trans-sentence">"{currentWord.example.after}"</p>
                     </div>
                   </div>
@@ -492,6 +673,13 @@ export function App() {
                   </div>
                 )}
 
+                {/* Copy Toast Banner */}
+                {copyToast && (
+                  <div className="copy-toast-banner" role="status">
+                    {copyToast}
+                  </div>
+                )}
+
                 {/* Bottom Actions */}
                 <div className="result-actions-bar">
                   <button 
@@ -514,12 +702,12 @@ export function App() {
             </article>
           ) : (
             <div className="empty-state-card">
-              <div className="empty-state-icon">
-                <ArrowRight size={28} />
+              <div className="empty-state-icon" style={{ fontSize: '2rem' }}>
+                🤔
               </div>
-              <h2 className="empty-state-title">TYPE A WORD TO GET STARTED</h2>
+              <h2 className="empty-state-title">WE DON'T HAVE THAT ONE</h2>
               <p className="empty-state-desc">
-                Enter any basic adjective like <strong>tired</strong>, <strong>cold</strong>, <strong>big</strong>, <strong>angry</strong>, or pick one from above.
+                Did you make that up or are you just testing us?
               </p>
             </div>
           )}
@@ -537,7 +725,7 @@ export function App() {
                   type="text"
                   className="bank-search-input"
                   style={{ paddingLeft: '2.5rem' }}
-                  placeholder="search any word or synonym..."
+                  placeholder="search any word, meaning, or synonym..."
                   value={searchQuery}
                   onChange={(e) => setSearchQuery(e.target.value)}
                 />
@@ -552,13 +740,14 @@ export function App() {
 
             {/* Category Filter Chips */}
             <div className="category-filter-chips">
-              {categories.map(cat => (
+              {categoryFilters.map(cat => (
                 <button
                   key={cat}
                   className={`quick-chip ${selectedCategory === cat ? 'active' : ''}`}
                   onClick={() => setSelectedCategory(cat)}
+                  title={categoryLabels[cat] || cat}
                 >
-                  {cat}
+                  {cat === 'All' ? 'all' : cat.toLowerCase()}
                 </button>
               ))}
             </div>
@@ -566,56 +755,74 @@ export function App() {
 
           {/* Words Grid */}
           <div className="words-grid">
-            {filteredWords.map((item) => (
-              <div key={item.id} className="word-grid-card">
-                <div className="card-top">
-                  <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
-                    <div className="card-formula-badge">
-                      <span>very + <strong>{item.base}</strong></span>
-                    </div>
-                    <span className="nb-badge" style={{ fontSize: '0.65rem' }}>
-                      {item.category}
-                    </span>
-                  </div>
-
-                  <h3 className="card-formula-strong">{item.strong}</h3>
-                  <div style={{ display: 'flex', gap: '0.5rem', alignItems: 'center' }}>
-                    <span className="font-mono" style={{ fontSize: '0.8rem', background: '#000', color: '#fff', padding: '0.1rem 0.4rem' }}>
-                      {item.phonetic}
-                    </span>
-                    <span className="font-mono" style={{ fontSize: '0.75rem', color: '#666' }}>
-                      {item.partOfSpeech}
-                    </span>
-                  </div>
-
-                  <p style={{ fontSize: '0.9rem', color: '#333', marginTop: '0.35rem' }}>
-                    {item.definition}
-                  </p>
+            {filteredWords.length === 0 ? (
+              <div className="empty-state-card" style={{ gridColumn: '1 / -1' }}>
+                <div className="empty-state-icon" style={{ fontSize: '2rem' }}>
+                  🤔
                 </div>
-
-                <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', borderTop: '2px solid #000', paddingTop: '0.75rem' }}>
-                  <button 
-                    className="quick-chip"
-                    onClick={() => speakWord(item.strong)}
-                    title="Pronounce"
-                  >
-                    <Volume2 size={14} />
-                    listen
-                  </button>
-
-                  <button 
-                    className="nb-btn nb-btn-sm nb-btn-yellow"
-                    onClick={() => {
-                      setInputValue(item.base);
-                      setCurrentWord(item);
-                      setActiveTab('formula');
-                    }}
-                  >
-                    use this word
-                  </button>
-                </div>
+                <h2 className="empty-state-title">WE DON'T HAVE THAT ONE</h2>
+                <p className="empty-state-desc">
+                  Did you make that up or are you just testing us?
+                </p>
               </div>
-            ))}
+            ) : (
+              filteredWords.map((item) => (
+                <div key={item.id} className="word-grid-card">
+                  <div className="card-top">
+                    <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
+                      <div className="card-formula-badge">
+                        <span>very + <strong>{item.base}</strong></span>
+                      </div>
+                      <span className="nb-badge" style={{ fontSize: '0.65rem' }}>
+                        {item.category}
+                      </span>
+                    </div>
+
+                    <h3 className="card-formula-strong">{item.strong}</h3>
+                    <div style={{ display: 'flex', gap: '0.5rem', alignItems: 'center' }}>
+                      <span className="font-mono" style={{ fontSize: '0.8rem', background: '#000', color: '#fff', padding: '0.1rem 0.4rem' }}>
+                        {item.phonetic}
+                      </span>
+                      <span className="font-mono" style={{ fontSize: '0.75rem', color: '#666' }}>
+                        {item.partOfSpeech}
+                      </span>
+                    </div>
+
+                    {item.note && (
+                      <div style={{ fontSize: '0.8rem', color: '#555', fontStyle: 'italic', marginTop: '0.4rem' }}>
+                        "{item.note}"
+                      </div>
+                    )}
+
+                    <p style={{ fontSize: '0.9rem', color: '#333', marginTop: '0.35rem' }}>
+                      {item.definition}
+                    </p>
+                  </div>
+
+                  <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', borderTop: '2px solid #000', paddingTop: '0.75rem' }}>
+                    <button 
+                      className="quick-chip"
+                      onClick={() => speakWord(item.strong)}
+                      title="Listen (so you don't embarrass yourself saying it out loud)"
+                    >
+                      <Volume2 size={14} />
+                      listen
+                    </button>
+
+                    <button 
+                      className="nb-btn nb-btn-sm nb-btn-yellow"
+                      onClick={() => {
+                        setInputValue(item.base);
+                        setCurrentWord(item);
+                        setActiveTab('formula');
+                      }}
+                    >
+                      use this word
+                    </button>
+                  </div>
+                </div>
+              ))
+            )}
           </div>
         </section>
       )}
@@ -627,8 +834,8 @@ export function App() {
             <div className="quiz-stat">
               score: <span style={{ color: 'var(--coral)' }}>{quizScore}</span>
             </div>
-            <div className="quiz-stat">
-              streak: <span style={{ color: '#2B6CB0' }}>{quizStreak} 🔥</span>
+            <div className="quiz-stat font-mono" style={{ fontSize: '0.85rem' }}>
+              {getStreakLabel(quizStreak)}
             </div>
             <div className="quiz-stat">
               question #{quizIndex + 1}
@@ -668,6 +875,13 @@ export function App() {
                 );
               })}
             </div>
+
+            {/* Instant Quiz Feedback Roast/Praise */}
+            {quizFeedback && (
+              <div className={`quiz-feedback-banner ${quizFeedback.isCorrect ? 'correct' : 'wrong'}`} role="status">
+                {quizFeedback.message}
+              </div>
+            )}
           </div>
 
           <button 
@@ -694,10 +908,10 @@ export function App() {
               <button 
                 className="quick-chip"
                 onClick={() => setParagraphInput(
-                  "It was a very cold morning. I was very tired and felt very hungry, but the sunrise over the mountains was very beautiful."
+                  "I was very tired so I drank a very big coffee, but my boss was very angry because the report was very bad and very late. It was a very cold morning and I felt very sad."
                 )}
               >
-                try an example
+                load an essay disaster
               </button>
             </div>
 
@@ -708,6 +922,12 @@ export function App() {
               placeholder="paste anything you wrote with 'very + word' here. we'll highlight words you can swap out..."
             />
 
+            {/* Diagnosis Banner */}
+            <div className="diagnosis-box">
+              <span>🧐</span>
+              <span>{getVeryDiagnosis(veryCount)}</span>
+            </div>
+
             <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', flexWrap: 'wrap', gap: '0.75rem' }}>
               <span className="font-mono" style={{ fontSize: '0.85rem', fontWeight: 700 }}>
                 live word replacement active
@@ -716,13 +936,25 @@ export function App() {
               <button 
                 className="nb-btn nb-btn-sm nb-btn-yellow"
                 onClick={() => {
-                  navigator.clipboard.writeText(paragraphInput);
+                  let text = paragraphInput;
+                  WORD_DATABASE.forEach(item => {
+                    const regex = new RegExp(`\\bvery\\s+${item.base}\\b`, 'gi');
+                    text = text.replace(regex, item.strong.toLowerCase());
+                  });
+                  copyToClipboard(text, true);
                 }}
               >
                 <Copy size={16} />
-                copy text
+                copy upgraded version (take all the credit)
               </button>
             </div>
+
+            {/* Toast Banner */}
+            {copyToast && (
+              <div className="copy-toast-banner" role="status">
+                {copyToast}
+              </div>
+            )}
           </div>
 
           {/* Output Display */}
@@ -758,9 +990,15 @@ export function App() {
 
             <div className="nb-modal-body">
               {savedWords.length === 0 ? (
-                <p style={{ textAlign: 'center', color: '#666', padding: '2rem 0' }}>
-                  no saved words yet. click save on any word card to keep it here.
-                </p>
+                <div style={{ textAlign: 'center', padding: '2rem 1rem' }}>
+                  <div style={{ fontSize: '2rem', marginBottom: '0.5rem' }}>📖</div>
+                  <p style={{ fontWeight: 800, fontSize: '1.05rem', textTransform: 'uppercase' }}>
+                    0 saved words
+                  </p>
+                  <p style={{ color: '#666', marginTop: '0.35rem', fontSize: '0.9rem' }}>
+                    Either you already know the entire dictionary or you're not paying attention.
+                  </p>
+                </div>
               ) : (
                 savedWords.map((word) => {
                   const entry = WORD_DATABASE.find(w => w.strong.toLowerCase() === word || w.base.toLowerCase() === word);
@@ -786,12 +1024,18 @@ export function App() {
                             replaces: <strong>very {entry.base}</strong>
                           </div>
                         )}
+                        {entry?.note && (
+                          <div style={{ fontSize: '0.75rem', color: '#777', fontStyle: 'italic', marginTop: '0.15rem' }}>
+                            "{entry.note}"
+                          </div>
+                        )}
                       </div>
 
                       <div style={{ display: 'flex', gap: '0.4rem' }}>
                         <button 
                           className="quick-chip"
                           onClick={() => speakWord(entry ? entry.strong : word)}
+                          title="Listen (so you don't embarrass yourself saying it out loud)"
                         >
                           <Volume2 size={14} />
                         </button>
@@ -799,6 +1043,7 @@ export function App() {
                           className="quick-chip"
                           onClick={() => toggleSaveWord(word)}
                           style={{ backgroundColor: '#FF5A36', color: '#fff' }}
+                          title="Remove from saved words"
                         >
                           <X size={14} />
                         </button>
@@ -815,15 +1060,16 @@ export function App() {
                   className="nb-btn nb-btn-sm"
                   onClick={() => {
                     navigator.clipboard.writeText(savedWords.join(', '));
-                    alert('copied saved words to clipboard');
+                    alert('Copied saved words. Go impress someone.');
                   }}
                 >
-                  <Copy size={16} />
+                  <Copy size={14} />
                   copy all
                 </button>
                 <button 
-                  className="nb-btn nb-btn-sm nb-btn-coral"
+                  className="nb-btn nb-btn-sm"
                   onClick={() => setSavedWords([])}
+                  style={{ backgroundColor: '#FEB2B2', color: '#9B2C2C' }}
                 >
                   clear all
                 </button>
@@ -833,18 +1079,8 @@ export function App() {
         </div>
       )}
 
-      {/* Sue-Proof Legal & Compliance Footer */}
-      <footer 
-        style={{ 
-          borderTop: 'var(--border-thick) solid var(--ink)', 
-          paddingTop: '2rem', 
-          display: 'flex', 
-          flexDirection: 'column',
-          gap: '1.25rem',
-          marginTop: '2.5rem'
-        }}
-        role="contentinfo"
-      >
+      {/* FOOTER & SUE-PROOF LEGAL COMPLIANCE */}
+      <footer className="footer-bar" role="contentinfo">
         <div style={{ 
           display: 'flex', 
           justifyContent: 'space-between', 
@@ -860,10 +1096,10 @@ export function App() {
               NO ADS
             </span>
             <span className="nb-badge" style={{ backgroundColor: 'var(--lime)', fontSize: '0.8rem' }}>
-              NO TRACKING
+              NO TRACKERS
             </span>
             <span className="nb-badge" style={{ backgroundColor: 'var(--cyan)', fontSize: '0.8rem' }}>
-              ACCESSIBLE
+              NO SIGN-UP REQUIRED
             </span>
           </div>
 
@@ -925,7 +1161,7 @@ export function App() {
           color: '#666'
         }}>
           <div>
-            © 2026 VERY+. free forever. zero tracking.
+            © 2026 VERY+. 100% free. no ads, no trackers, zero sign-ups, literally no reason to complain.
           </div>
           <div style={{ display: 'flex', gap: '0.5rem', flexWrap: 'wrap' }}>
             <span>100% FREE</span>
