@@ -1056,3 +1056,90 @@ body {
   line-height: 1.45;
   box-shadow: 2px 2px 0px #000;
 }
+
+/* Witty Context Note in Result Card */
+.relatable-note-box {
+  margin-top: 0.75rem;
+  padding: 0.65rem 0.85rem;
+  background-color: #FFFDE7;
+  border: 2px dashed #000;
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 0.85rem;
+  color: #333;
+  line-height: 1.4;
+  box-shadow: 2px 2px 0px #000;
+}
+
+/* Dynamic Copy Toast */
+.copy-toast-banner {
+  padding: 0.5rem 0.75rem;
+  background-color: var(--lime);
+  border: 2px solid #000;
+  box-shadow: 2px 2px 0px #000;
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 0.8rem;
+  font-weight: 700;
+  color: #000;
+  animation: popIn 0.15s ease-out;
+}
+
+@keyframes popIn {
+  from { transform: scale(0.96); opacity: 0; }
+  to { transform: scale(1); opacity: 1; }
+}
+
+/* Quiz Feedback Banner */
+.quiz-feedback-banner {
+  padding: 0.75rem 1rem;
+  border: 3px solid #000;
+  box-shadow: 3px 3px 0px #000;
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 0.95rem;
+  font-weight: 800;
+  text-align: center;
+  margin-top: 1rem;
+}
+
+.quiz-feedback-banner.correct {
+  background-color: var(--lime);
+  color: #000;
+}
+
+.quiz-feedback-banner.wrong {
+  background-color: #FEB2B2;
+  color: #9B2C2C;
+}
+
+/* Paragraph Fixer Diagnosis Badge */
+.diagnosis-box {
+  padding: 0.75rem 1rem;
+  background-color: #FFF9DB;
+  border: 2px solid #000;
+  box-shadow: 2px 2px 0px #000;
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 0.85rem;
+  font-weight: 700;
+  color: #000;
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+}
+
+/* Spam Click Warning */
+.spam-warning-banner {
+  position: fixed;
+  top: 1.5rem;
+  left: 50%;
+  transform: translateX(-50%);
+  background-color: var(--yellow);
+  color: #000;
+  border: 3px solid #000;
+  box-shadow: 4px 4px 0px #000;
+  padding: 0.75rem 1.25rem;
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 0.85rem;
+  font-weight: 800;
+  z-index: 9999;
+  animation: popIn 0.2s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+}
+
