@@ -40,11 +40,11 @@ export function ComplianceBanner({ onOpenLegal }: ComplianceBannerProps) {
         <div style={{ display: 'flex', alignItems: 'center', gap: '0.6rem' }}>
           <ShieldCheck size={20} strokeWidth={2.5} />
           <span style={{ fontWeight: 900, textTransform: 'uppercase', letterSpacing: '0.04em' }}>
-            TRANSPARENCY & DATA PRIVACY:
+            ZERO COOKIES, ZERO WEIRD TRACKING:
           </span>
         </div>
         <p style={{ fontSize: '0.85rem', fontWeight: 600, margin: 0, color: '#111' }}>
-          This application operates 100% client-side without third-party tracking cookies or profiling. Local storage is strictly used for saved words and preferences. By continuing, you agree to our{' '}
+          Real talk: this site runs 100% in your browser. We don't track you, we don't sell your data, and we don't even have a database. Your saved words stay on your own device. Peep our{' '}
           <button 
             type="button" 
             className="legal-inline-link"
@@ -59,7 +59,8 @@ export function ComplianceBanner({ onOpenLegal }: ComplianceBannerProps) {
             onClick={() => onOpenLegal('privacy')}
           >
             Privacy Policy
-          </button>.
+          </button>
+          {' '}if you want the boring details.
         </p>
       </div>
 
@@ -70,7 +71,7 @@ export function ComplianceBanner({ onOpenLegal }: ComplianceBannerProps) {
           onClick={() => onOpenLegal('disclaimer')}
         >
           <Info size={14} />
-          LEGAL DETAILS
+          BORING LEGAL STUFF
         </button>
         <button 
           className="nb-btn nb-btn-sm nb-btn-yellow"
@@ -78,7 +79,7 @@ export function ComplianceBanner({ onOpenLegal }: ComplianceBannerProps) {
           onClick={handleAccept}
         >
           <Check size={14} />
-          GOT IT / ACCEPT
+          BET / GOT IT 👍
         </button>
       </div>
     </aside>
